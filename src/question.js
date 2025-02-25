@@ -7,12 +7,11 @@ class Question {
     }
 
     shuffleChoices(){
-
         for(let i = 0; i < this.choices.length; i++){   
-            const shuffle = Math.round(Math.random() * (i + 1));
+            const shuffle = Math.floor(Math.random() * (i + 1));
             [this.choices[i], this.choices[shuffle]] = [this.choices[shuffle], this.choices[i]];
         }
     }
 
         }
-  
+
