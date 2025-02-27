@@ -197,15 +197,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultContainer = document.querySelector("#result");
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
   }
-  
+
+
   const restartButton = document.getElementById("restartButton");
 
   restartButton.addEventListener("click", () => {
-    quizView.style.display = "none";
-    endView.style.display = "flex";
-    currentQuestionIndex = 0;
-    correctAnswers = 0;
-    quiz.shuffleQuestions();
-    showQuestion();
-  })
-});
+  restartButton.classList.add("hidden");
+  quizView.style.display = "block";
+  endView.style.display = "none"; 
+  quiz.currentQuestionIndex = 0;
+  quiz.correctAnswers = 0;
+  quiz.shuffleQuestions();
+  showQuestion();
+  quiz.timeRemaining = quizDuration;
+  timeRemainingContainer.innerText = `${Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0")}:${(quiz.timeRemaining % 60).toString().padStart(2, "0")}`;
+}); 
+
+
+interval = setInterval(() =>{
+ timeRemainingContainer.innerText = `${Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0")}:${(quiz.timeRemaining % 60).toString().padStart(2, "0")}`;
+ quiz.timeRemaining -= 1;
+ if (quiz.timeRemaining === 0) {
+  showResults();
+  clearInterval(interval);
+ }
+}, 1000);
+
+})
