@@ -27,7 +27,9 @@ shuffleQuestions() {
 checkAnswer(answer) {
     if (this.questions[this.currentQuestionIndex].answer === answer){
         this.correctAnswers += 1;
+        return true;
     }
+    return false;
 }
 
 hasEnded() {
